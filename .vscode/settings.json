@@ -1,0 +1,30 @@
+{
+	"files.associations": {
+		"*.json.liquid": "json",
+		"*.yaml.liquid": "yaml",
+		"*.md.liquid": "markdown",
+		"*.js.liquid": "liquid-javascript",
+		"*.css.liquid": "liquid-css",
+		"*.scss.liquid": "liquid-scss",
+		".env*": "dotenv",
+		"*.css": "tailwindcss",
+		"stdio.h": "c",
+		"tests.h": "c",
+		"index.h": "c",
+		"strings_utils.h": "c",
+		"arrays_utils.h": "c",
+		"string.h": "c",
+		"optional": "c",
+		"system_error": "c",
+		"array": "c",
+		"functional": "c",
+		"tuple": "c",
+		"type_traits": "c",
+		"utility": "c",
+		"stdlib.h": "c",
+		"vector": "c",
+		"cstdlib": "c",
+		"snek_object_t.h": "c"
+	},
+	"cSpell.words": ["fprintf", "malloc", "stdlib"]
+}

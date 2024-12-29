@@ -1,0 +1,26 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "build",
+			"type": "shell",
+			"command": "gcc",
+			"args": [
+				"main.c",
+				"strings/strings_utils.c",
+				"arrays/arrays_utils.c",
+				"text_buffer/index.c",
+				"sneklang/snek_object_t.h",
+				"sneklang/snekobject/index.c",
+				"sneklang/stack/index.c",
+				"sneklang/vm/index.c",
+				"-o",
+				"main",
+				"-lm"
+			],
+			"group": "build",
+			"problemMatcher": ["$gcc"],
+			"detail": "Generated task to compile C files"
+		}
+	]
+}

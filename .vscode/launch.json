@@ -1,0 +1,29 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "Run Program",
+			"type": "cppdbg", // This could be any type, but cppdbg is useful for C/C++
+			"request": "launch",
+			"program": "${workspaceFolder}/main", // Path to the compiled binary
+			"args": [],
+			"stopAtEntry": false,
+			"cwd": "${workspaceFolder}", // Set the working directory to your workspace
+			"environment": [],
+			"externalConsole": true, // Opens a new terminal window
+			"preLaunchTask": "build", // Ensure the build task is executed before running
+			"miDebuggerPath": "/usr/bin/gdb", // Not strictly necessary if you're not debugging
+			"setupCommands": [
+				{
+					"description": "Enable pretty-printing for gdb",
+					"text": "-enable-pretty-printing",
+					"ignoreFailures": true
+				}
+			],
+			"visualizerFile": "",
+			"debugServerPath": "",
+			"debugServerArgs": "",
+			"serverStarted": ""
+		}
+	]
+}

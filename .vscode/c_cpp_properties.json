@@ -1,0 +1,25 @@
+{
+	"configurations": [
+		{
+			"name": "Linux",
+			"includePath": [
+				"${workspaceFolder}/**", // This includes all folders within the workspace
+				"/usr/include", // Standard system includes (if needed)
+				"/usr/local/include" // Any local includes (if needed)
+			],
+			"defines": [],
+			"compilerPath": "/usr/bin/gcc", // Path to your C compiler
+			"intelliSenseMode": "linux-gcc-x64", // IntelliSense mode for GCC
+			"cStandard": "c11", // The standard you are using (e.g., C11)
+			"cppStandard": "c++17", // For C++ (even if you're using C, this might help with some mixed scenarios)
+			"browse": {
+				"path": [
+					"${workspaceFolder}/**", // Include your workspace files in the browse path
+					"/usr/include", // System includes
+					"/usr/local/include"
+				]
+			}
+		}
+	],
+	"version": 4
+}
