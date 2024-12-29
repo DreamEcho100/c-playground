@@ -74,7 +74,7 @@ void nih_strcat_2(char *str1, const char *str2)
 void nih_strcpy(char *dest, const char *src, size_t dest_size)
 {
 	// Ensure pointers are valid and size is not zero
-	if (dest == NULL || src == NULL || 0 > dest_size)
+	if (dest == NULL || src == NULL || dest_size <= 0)
 	{
 		return;
 	}
@@ -185,7 +185,7 @@ void nih_strncpy(char *dest, size_t dest_size, const char *src, size_t size_limi
 }
 void nih_strncat(char *dest, const char *src, size_t size_limit)
 {
-	if (dest == NULL || src == NULL || 0 > size_limit)
+	if (dest == NULL || src == NULL || size_limit <= 0)
 	{
 		return;
 	}

@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
 
 /** Basic Pointer Operations */
 void exercise_basic_pointer_operations()
