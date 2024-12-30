@@ -45,10 +45,9 @@ typedef union SnekObjectData
 
 typedef struct SnekObject
 {
-	bool is_marked;
 	snek_object_kind_t kind;
 	snek_object_data_t data;
-	// int refcount;
+	int refcount;
 } snek_object_t;
 
 snek_object_t *_new_snek_object(vm_t *vm);
@@ -64,9 +63,9 @@ snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index);
 
 snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b);
 
-// void refcount_free(snek_object_t *obj);
-// void refcount_inc(snek_object_t *obj);
-// void refcount_dec(snek_object_t *obj);
+void refcount_free(snek_object_t *obj);
+void refcount_inc(snek_object_t *obj);
+void refcount_dec(snek_object_t *obj);
 #endif // SNEKLANG_SNEKOBJECT_INDEX_H
 
 void snek_object_free(snek_object_t *obj);

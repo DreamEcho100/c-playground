@@ -32,76 +32,76 @@ void snek_object_free(snek_object_t *obj)
 	free(obj);
 }
 
-// void refcount_free(snek_object_t *obj)
-// {
-// 	if (obj == NULL)
-// 	{
-// 		return;
-// 	}
+void refcount_free(snek_object_t *obj)
+{
+	if (obj == NULL)
+	{
+		return;
+	}
 
-// 	switch (obj->kind)
-// 	{
-// 	case INTEGER:
-// 	case FLOAT:
-// 		break;
-// 	case STRING:
-// 		free(obj->data.v_string);
-// 		break;
-// 	case VECTOR3:
-// 	{
-// 		snek_vector_t vec = obj->data.v_vector3;
-// 		if (vec.x)
-// 			refcount_dec(vec.x);
-// 		if (vec.y)
-// 			refcount_dec(vec.y);
-// 		if (vec.z)
-// 			refcount_dec(vec.z);
-// 		break;
-// 	}
-// 	case ARRAY:
-// 	{
-// 		snek_array_t array = obj->data.v_array;
-// 		for (size_t i = 0; i < array.size; ++i)
-// 		{
-// 			if (array.elements[i])
-// 				refcount_dec(array.elements[i]);
-// 		}
-// 		free(array.elements);
-// 		break;
-// 	}
-// 	default:
-// 		fprintf(stderr, "Error: Unhandled object kind in refcount_free.\n");
-// 		exit(EXIT_FAILURE); // Gracefully terminate the program
-// 	}
-// 	free(obj);
-// }
-// void refcount_inc(snek_object_t *obj)
-// {
-// 	if (obj == NULL)
-// 	{
-// 		return;
-// 	}
+	switch (obj->kind)
+	{
+	case INTEGER:
+	case FLOAT:
+		break;
+	case STRING:
+		free(obj->data.v_string);
+		break;
+	case VECTOR3:
+	{
+		snek_vector_t vec = obj->data.v_vector3;
+		if (vec.x)
+			refcount_dec(vec.x);
+		if (vec.y)
+			refcount_dec(vec.y);
+		if (vec.z)
+			refcount_dec(vec.z);
+		break;
+	}
+	case ARRAY:
+	{
+		snek_array_t array = obj->data.v_array;
+		for (size_t i = 0; i < array.size; ++i)
+		{
+			if (array.elements[i])
+				refcount_dec(array.elements[i]);
+		}
+		free(array.elements);
+		break;
+	}
+	default:
+		fprintf(stderr, "Error: Unhandled object kind in refcount_free.\n");
+		exit(EXIT_FAILURE); // Gracefully terminate the program
+	}
+	free(obj);
+}
+void refcount_inc(snek_object_t *obj)
+{
+	if (obj == NULL)
+	{
+		return;
+	}
 
-// 	obj->refcount++;
-// 	return;
-// }
-// void refcount_dec(snek_object_t *obj)
-// {
+	obj->refcount++;
+	return;
+}
+void refcount_dec(snek_object_t *obj)
+{
 
-// 	if (
-// 			obj == NULL
-// 			// Prevent double free _(dangling pointer)_
-// 			|| obj->refcount == 0)
-// 	{
-// 		return;
-// 	}
-// 	obj->refcount--;
-// 	if (obj->refcount == 0)
-// 	{
-// 		return refcount_free(obj);
-// 	}
-// 	return;
-// }
+	if (
+			obj == NULL
+			// Prevent double free _(dangling pointer)_
+			|| obj->refcount == 0)
+	{
+		return;
+	}
+	obj->refcount--;
+	if (obj->refcount == 0)
+	{
+		return refcount_free(obj);
+	}
+	return;
+}
 
 snek_object_t *_new_snek_object(vm_t *vm)
 {
@@ -112,8 +112,7 @@ snek_object_t *_new_snek_object(vm_t *vm)
 		exit(EXIT_FAILURE);
 	}
 
-	// obj->refcount = 1;
-	obj->is_marked = false;
+	obj->refcount = 1;
 
 	vm_track_object(vm, obj);
 
@@ -301,12 +300,12 @@ bool snek_array_set(snek_object_t *snek_obj, size_t index, snek_object_t *value)
 	// 	snek_obj->data.v_array.size++;
 	// }
 
-	// if (snek_obj->data.v_array.elements[index] != NULL)
-	// {
-	// 	refcount_dec(snek_obj->data.v_array.elements[index]);
-	// }
+	if (snek_obj->data.v_array.elements[index] != NULL)
+	{
+		refcount_dec(snek_obj->data.v_array.elements[index]);
+	}
 	snek_obj->data.v_array.elements[index] = value;
-	// refcount_inc(value);
+	refcount_inc(value);
 	return true;
 }
 snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index)
@@ -356,12 +355,12 @@ snek_object_t *new_snek_vector3(vm_t *vm, snek_object_t *x, snek_object_t *y, sn
 
 	obj->kind = VECTOR3;
 	obj->data.v_vector3 = (snek_vector_t){.x = x, .y = y, .z = z};
-	// if (x)
-	// 	refcount_inc(x);
-	// if (y)
-	// 	refcount_inc(y);
-	// if (z)
-	// 	refcount_inc(z);
+	if (x)
+		refcount_inc(x);
+	if (y)
+		refcount_inc(y);
+	if (z)
+		refcount_inc(z);
 
 	return obj;
 }
