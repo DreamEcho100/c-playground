@@ -137,11 +137,11 @@ void mark(vm_t *vm)
 		// Should exit
 		return;
 
-	for (int i = 0; i < vm->frames->count; ++i)
+	for (size_t i = 0; i < vm->frames->count; ++i)
 	{
 		frame_t *frame = vm->frames->data[i];
 
-		for (int j = 0; j < frame->references->count; ++j)
+		for (size_t j = 0; j < frame->references->count; ++j)
 		{
 			snek_object_t *obj = frame->references->data[j];
 			obj->is_marked = true;

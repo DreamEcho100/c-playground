@@ -53,6 +53,8 @@ typedef struct SnekObject
 
 snek_object_t *_new_snek_object(vm_t *vm);
 
+int snek_length(snek_object_t *obj);
+
 snek_object_t *new_snek_integer(vm_t *vm, int value);
 snek_object_t *new_snek_float(vm_t *vm, float value);
 snek_object_t *new_snek_string(vm_t *vm, char *value);

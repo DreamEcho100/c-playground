@@ -280,7 +280,7 @@ char *nih_strstr(const char *str, const char *substr)
 			else
 			{
 				printf("Increment\n");
-				*char_check++;
+				(void)(*char_check++);
 			}
 
 			if (!char_check)
