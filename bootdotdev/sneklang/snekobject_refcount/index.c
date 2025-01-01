@@ -8,7 +8,7 @@
 
 // #pragma once
 
-void snek_object_free(snek_object_t *obj)
+void snek_object_free_refcount_v(snek_object_refcount_v_t *obj)
 {
 
 	switch (obj->kind)
@@ -32,7 +32,7 @@ void snek_object_free(snek_object_t *obj)
 	free(obj);
 }
 
-void refcount_free(snek_object_t *obj)
+void refcount_free(snek_object_refcount_v_t *obj)
 {
 	if (obj == NULL)
 	{
@@ -49,7 +49,7 @@ void refcount_free(snek_object_t *obj)
 		break;
 	case VECTOR3:
 	{
-		snek_vector_t vec = obj->data.v_vector3;
+		snek_vector_refcount_v_t vec = obj->data.v_vector3;
 		if (vec.x)
 			refcount_dec(vec.x);
 		if (vec.y)
@@ -60,7 +60,7 @@ void refcount_free(snek_object_t *obj)
 	}
 	case ARRAY:
 	{
-		snek_array_t array = obj->data.v_array;
+		snek_array_refcount_v_t array = obj->data.v_array;
 		for (size_t i = 0; i < array.size; ++i)
 		{
 			if (array.elements[i])
@@ -75,7 +75,7 @@ void refcount_free(snek_object_t *obj)
 	}
 	free(obj);
 }
-void refcount_inc(snek_object_t *obj)
+void refcount_inc(snek_object_refcount_v_t *obj)
 {
 	if (obj == NULL)
 	{
@@ -85,7 +85,7 @@ void refcount_inc(snek_object_t *obj)
 	obj->refcount++;
 	return;
 }
-void refcount_dec(snek_object_t *obj)
+void refcount_dec(snek_object_refcount_v_t *obj)
 {
 
 	if (
@@ -103,9 +103,9 @@ void refcount_dec(snek_object_t *obj)
 	return;
 }
 
-snek_object_t *_new_snek_object(vm_t *vm)
+snek_object_refcount_v_t *_new_snek_object_refcount_v(vm_refcount_v_t *vm)
 {
-	snek_object_t *obj = (snek_object_t *)malloc(sizeof(snek_object_t));
+	snek_object_refcount_v_t *obj = (snek_object_refcount_v_t *)malloc(sizeof(snek_object_refcount_v_t));
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
@@ -120,7 +120,7 @@ snek_object_t *_new_snek_object(vm_t *vm)
 	return obj;
 }
 
-snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
+snek_object_refcount_v_t *snek_add_refcount_v(vm_refcount_v_t *vm, snek_object_refcount_v_t *a, snek_object_refcount_v_t *b)
 {
 	// Always check for NULL after allocations
 	if (a == NULL || b == NULL)
@@ -135,11 +135,11 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 		case INTEGER:
 		{
 
-			return new_snek_integer(vm, a->data.v_int + b->data.v_int);
+			return new_snek_integer_refcount_v(vm, a->data.v_int + b->data.v_int);
 		}
 		case FLOAT:
 		{
-			return new_snek_float(vm, a->data.v_int + b->data.v_float);
+			return new_snek_float_refcount_v(vm, a->data.v_int + b->data.v_float);
 		}
 		default:
 		{
@@ -154,11 +154,11 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 		case INTEGER:
 		{
 
-			return new_snek_float(vm, a->data.v_int + b->data.v_float);
+			return new_snek_float_refcount_v(vm, a->data.v_int + b->data.v_float);
 		}
 		case FLOAT:
 		{
-			return new_snek_float(vm, a->data.v_float + b->data.v_float);
+			return new_snek_float_refcount_v(vm, a->data.v_float + b->data.v_float);
 		}
 		default:
 		{
@@ -202,7 +202,7 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 		memcpy(new_string + a_len, b->data.v_string, b_len);
 		new_string[new_len - 1] = '\0'; // Add null terminator
 
-		snek_object_t *result = new_snek_string(vm, new_string);
+		snek_object_refcount_v_t *result = new_snek_string_refcount_v(vm, new_string);
 		// !IMPORTANT;
 		// Free the intermediate buffer after new_snek_string makes its copy
 		// Because `new_snek_string` makes its own copy of the string.
@@ -216,11 +216,11 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 			return NULL;
 		}
 
-		return new_snek_vector3(
+		return new_snek_vector3_refcount_v(
 				vm,
-				snek_add(vm, a->data.v_vector3.x, b->data.v_vector3.x),
-				snek_add(vm, a->data.v_vector3.y, b->data.v_vector3.y),
-				snek_add(vm, a->data.v_vector3.z, b->data.v_vector3.z));
+				snek_add_refcount_v(vm, a->data.v_vector3.x, b->data.v_vector3.x),
+				snek_add_refcount_v(vm, a->data.v_vector3.y, b->data.v_vector3.y),
+				snek_add_refcount_v(vm, a->data.v_vector3.z, b->data.v_vector3.z));
 	}
 	case ARRAY:
 	{
@@ -230,19 +230,19 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 		}
 
 		size_t new_size = a->data.v_array.size + b->data.v_array.size;
-		snek_object_t *new_array_obj = new_snek_array(vm, new_size);
+		snek_object_refcount_v_t *new_array_obj = new_snek_array_refcount_v(vm, new_size);
 
 		// Use the accessor functions when available (snek_array_get, snek_array_set)
 		size_t i = 0;
 		for (; i < a->data.v_array.size; ++i)
 		{
-			snek_array_set(new_array_obj, i, snek_array_get(a, i));
+			snek_array_set_refcount_v(new_array_obj, i, snek_array_get_refcount_v(a, i));
 		}
 
 		size_t j = 0;
 		for (; j < b->data.v_array.size; j++)
 		{
-			snek_array_set(new_array_obj, j + i, snek_array_get(b, j));
+			snek_array_set_refcount_v(new_array_obj, j + i, snek_array_get_refcount_v(b, j));
 		}
 
 		return new_array_obj;
@@ -253,7 +253,7 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b)
 	}
 }
 
-int snek_length(snek_object_t *obj)
+int snek_length_refcount_v(snek_object_refcount_v_t *obj)
 {
 	// If the input is NULL return -1 (which we've chosen to indicate failure).
 	if (obj == NULL)
@@ -282,7 +282,7 @@ int snek_length(snek_object_t *obj)
 		return -1;
 	}
 }
-bool snek_array_set(snek_object_t *snek_obj, size_t index, snek_object_t *value)
+bool snek_array_set_refcount_v(snek_object_refcount_v_t *snek_obj, size_t index, snek_object_refcount_v_t *value)
 {
 	if (
 			snek_obj == NULL || value == NULL ||
@@ -308,7 +308,7 @@ bool snek_array_set(snek_object_t *snek_obj, size_t index, snek_object_t *value)
 	refcount_inc(value);
 	return true;
 }
-snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index)
+snek_object_refcount_v_t *snek_array_get_refcount_v(snek_object_refcount_v_t *snek_obj, size_t index)
 {
 
 	if (
@@ -321,9 +321,9 @@ snek_object_t *snek_array_get(snek_object_t *snek_obj, size_t index)
 
 	return snek_obj->data.v_array.elements[index];
 }
-snek_object_t *new_snek_array(vm_t *vm, size_t size)
+snek_object_refcount_v_t *new_snek_array_refcount_v(vm_refcount_v_t *vm, size_t size)
 {
-	snek_object_t *obj = _new_snek_object(vm);
+	snek_object_refcount_v_t *obj = _new_snek_object_refcount_v(vm);
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
@@ -332,21 +332,21 @@ snek_object_t *new_snek_array(vm_t *vm, size_t size)
 
 	obj->kind = ARRAY;
 	// obj->data.element = (snek_object_t*)malloc(sizeof(snek_object_t*) * size);
-	snek_object_t **elements = (snek_object_t **)calloc(size, sizeof(snek_object_t *));
+	snek_object_refcount_v_t **elements = (snek_object_refcount_v_t **)calloc(size, sizeof(snek_object_refcount_v_t *));
 	if (elements == NULL)
 	{
 		free(obj);
 		fprintf(stderr, "Error: Couldn't allocate snek object elements.\n");
 		exit(EXIT_FAILURE);
 	}
-	obj->data.v_array = (snek_array_t){.size = size, .elements = elements};
+	obj->data.v_array = (snek_array_refcount_v_t){.size = size, .elements = elements};
 
 	return obj;
 }
 
-snek_object_t *new_snek_vector3(vm_t *vm, snek_object_t *x, snek_object_t *y, snek_object_t *z)
+snek_object_refcount_v_t *new_snek_vector3_refcount_v(vm_refcount_v_t *vm, snek_object_refcount_v_t *x, snek_object_refcount_v_t *y, snek_object_refcount_v_t *z)
 {
-	snek_object_t *obj = _new_snek_object(vm);
+	snek_object_refcount_v_t *obj = _new_snek_object_refcount_v(vm);
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
@@ -354,7 +354,7 @@ snek_object_t *new_snek_vector3(vm_t *vm, snek_object_t *x, snek_object_t *y, sn
 	}
 
 	obj->kind = VECTOR3;
-	obj->data.v_vector3 = (snek_vector_t){.x = x, .y = y, .z = z};
+	obj->data.v_vector3 = (snek_vector_refcount_v_t){.x = x, .y = y, .z = z};
 	if (x)
 		refcount_inc(x);
 	if (y)
@@ -365,9 +365,9 @@ snek_object_t *new_snek_vector3(vm_t *vm, snek_object_t *x, snek_object_t *y, sn
 	return obj;
 }
 
-snek_object_t *new_snek_string(vm_t *vm, char *value)
+snek_object_refcount_v_t *new_snek_string_refcount_v(vm_refcount_v_t *vm, char *value)
 {
-	snek_object_t *obj = _new_snek_object(vm);
+	snek_object_refcount_v_t *obj = _new_snek_object_refcount_v(vm);
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
@@ -395,9 +395,9 @@ snek_object_t *new_snek_string(vm_t *vm, char *value)
 	return obj;
 }
 
-snek_object_t *new_snek_integer(vm_t *vm, int value)
+snek_object_refcount_v_t *new_snek_integer_refcount_v(vm_refcount_v_t *vm, int value)
 {
-	snek_object_t *obj = _new_snek_object(vm);
+	snek_object_refcount_v_t *obj = _new_snek_object_refcount_v(vm);
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
@@ -409,9 +409,9 @@ snek_object_t *new_snek_integer(vm_t *vm, int value)
 	return obj;
 }
 
-snek_object_t *new_snek_float(vm_t *vm, float value)
+snek_object_refcount_v_t *new_snek_float_refcount_v(vm_refcount_v_t *vm, float value)
 {
-	snek_object_t *obj = _new_snek_object(vm);
+	snek_object_refcount_v_t *obj = _new_snek_object_refcount_v(vm);
 	if (obj == NULL)
 	{
 		fprintf(stderr, "Error: Couldn't allocate snek object.\n");
