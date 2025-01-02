@@ -1,5 +1,8 @@
-#include "./index.h"
 #include <stdbool.h>
+#include <stdio.h>
+
+#include "./index.h"
+#include "../print_array/index.h"
 
 void bubble_sort_int(int arr[], int size)
 {
@@ -32,4 +35,22 @@ void bubble_sort_int(int arr[], int size)
 			break;
 		}
 	}
+}
+
+void bubble_sort_int_test()
+{
+
+	// Bubble Sort
+	int arr[] = {64, 34, 25, 12, 22, 11, 90};
+	int arr_size = sizeof(arr) / sizeof(arr[0]);
+
+	printf("Unsorted array: \n");
+	print_arr_int(arr, arr_size, "%d\n");
+	printf("\n");
+
+	bubble_sort_int(arr, arr_size);
+
+	printf("Sorted array: \n");
+	print_arr_int(arr, arr_size, "%d\n");
+	printf("\n");
 }

@@ -26,7 +26,8 @@
 		"cstdlib": "c",
 		"snek_object_t.h": "c",
 		"snek_object_refcount_v_t.h": "c",
-		"stdbool.h": "c"
+		"stdbool.h": "c",
+		"index,c": "cpp"
 	},
 	"cSpell.words": ["fprintf", "malloc", "stdlib"]
 }

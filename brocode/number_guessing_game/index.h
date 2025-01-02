@@ -1,0 +1,6 @@
+#ifndef BROCODE_NUMBER_GUESSING_GAME_H
+#define BROCODE_NUMBER_GUESSING_GAME_H
+
+void number_guessing_game();
+
+#endif // BROCODE_NUMBER_GUESSING_GAME_H

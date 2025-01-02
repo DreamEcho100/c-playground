@@ -1,29 +1,15 @@
 #include <stdio.h>
 
-#include "./bubble-sort/index.h"
+// #include "./bubble_sort/index.h"
+// #include "./get_random_int/index.h"
+#include "./number_guessing_game/index.h"
 
 int main()
 {
-	printf("Hello World!");
-
-	// Bubble Sort
-	int arr[] = {64, 34, 25, 12, 22, 11, 90};
-	int n = sizeof(arr) / sizeof(arr[0]);
-
-	printf("Unsorted array: \n");
-
-	for (int i = 0; i < n; i++)
-	{
-		printf("%d ", arr[i]);
-	}
-
-	bubble_sort_int(arr, n);
-	printf("Sorted array: \n");
-
-	for (int i = 0; i < n; i++)
-	{
-		printf("%d ", arr[i]);
-	}
+	// printf("Hello World!\n");
+	// bubble_sort_int_test();
+	// test_get_random_int();
+	number_guessing_game();
 
 	return 0;
 }

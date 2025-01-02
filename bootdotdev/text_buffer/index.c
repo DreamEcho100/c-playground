@@ -13,7 +13,7 @@ int smart_append(TextBuffer *dest, const char *src)
 	}
 
 	size_t src_len = strlen(src);
-	size_t remaining_space = TEXT_BUFFER_MAX_BUFFER - dest->length - 1; // Account for the null terminator
+	size_t remaining_space = BOOT_DOT_DEV_TEXT_BUFFER_MAX_BUFFER - dest->length - 1; // Account for the null terminator
 
 	// If the source string is larger than the remaining space in the buffer
 	if (src_len > remaining_space)
@@ -22,10 +22,10 @@ int smart_append(TextBuffer *dest, const char *src)
 		strncat(dest->buffer, src, remaining_space);
 
 		// Ensure the buffer is null-terminated
-		dest->buffer[TEXT_BUFFER_MAX_BUFFER - 1] = '\0';
+		dest->buffer[BOOT_DOT_DEV_TEXT_BUFFER_MAX_BUFFER - 1] = '\0';
 
 		// Update the length to the max size
-		dest->length = TEXT_BUFFER_MAX_BUFFER - 1;
+		dest->length = BOOT_DOT_DEV_TEXT_BUFFER_MAX_BUFFER - 1;
 
 		return 1; // Return an error code (not enough space for full append)
 	}

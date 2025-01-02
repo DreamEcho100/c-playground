@@ -21,7 +21,7 @@ void nih_strcat(char *str1, const char *str2)
 	int offset = 0;
 	while (1)
 	{
-		if (str1[offset] == NULL_TERMINATOR_CHAR)
+		if (str1[offset] == BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 		{
 			break;
 		}
@@ -32,7 +32,7 @@ void nih_strcat(char *str1, const char *str2)
 	int src_index = 0;
 	while (1)
 	{
-		if (str2[src_index] == NULL_TERMINATOR_CHAR)
+		if (str2[src_index] == BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 		{
 			str1[offset + src_index] = str2[src_index];
 			break;
@@ -69,7 +69,7 @@ void nih_strcat_2(char *str1, const char *str2)
 		str2++;
 	}
 
-	*str1 = NULL_TERMINATOR_CHAR;
+	*str1 = BOOT_DOT_DEV_NULL_TERMINATOR_CHAR;
 }
 void nih_strcpy(char *dest, const char *src, size_t dest_size)
 {
@@ -96,7 +96,7 @@ void nih_strcpy(char *dest, const char *src, size_t dest_size)
 		remaining--;
 	}
 
-	*dest = NULL_TERMINATOR_CHAR;
+	*dest = BOOT_DOT_DEV_NULL_TERMINATOR_CHAR;
 }
 size_t nih_strlen(const char *src)
 {
@@ -167,19 +167,19 @@ void nih_strncpy(char *dest, size_t dest_size, const char *src, size_t size_limi
 			// Check if we reached the end of the src string
 			i < dest_size - 1 &&
 			// Check if we reached the end of the src string
-			src[i] != NULL_TERMINATOR_CHAR)
+			src[i] != BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 	{
 		dest[i] = src[i];
 		++i;
 	}
 
 	// Null-terminate the destination string if there's space
-	dest[i] = NULL_TERMINATOR_CHAR;
+	dest[i] = BOOT_DOT_DEV_NULL_TERMINATOR_CHAR;
 
 	// If we copied less than size_limit, null-terminate the dest string
 	while (i < dest_size - 1)
 	{
-		dest[i] = NULL_TERMINATOR_CHAR; // Fill remaining space with null characters
+		dest[i] = BOOT_DOT_DEV_NULL_TERMINATOR_CHAR; // Fill remaining space with null characters
 		++i;
 	}
 }
@@ -218,7 +218,7 @@ char *nih_strchr(const char *str, int desired_char)
 	// After the loop, we check if desired_char is '\0'
 	// And handle it explicitly by returning a pointer to the end of the string.
 	// This ensures proper behavior for cases like nih_strchr("Hello", '\0').
-	if (desired_char == NULL_TERMINATOR_CHAR)
+	if (desired_char == BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 	{
 		return (char *)str;
 	}
@@ -244,7 +244,7 @@ char *nih_strstr(const char *str, const char *substr)
 	// After the loop, we check if desired_char is '\0'
 	// And handle it explicitly by returning a pointer to the end of the string.
 	// This ensures proper behavior for cases like nih_strchr("Hello", '\0').
-	if (*substr == NULL_TERMINATOR_CHAR)
+	if (*substr == BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 	{
 		return (char *)str;
 	}
@@ -256,7 +256,7 @@ char *nih_strstr(const char *str, const char *substr)
 	{
 
 		printf("char_check: %c\n", *char_check);
-		if (*char_check == NULL_TERMINATOR_CHAR)
+		if (*char_check == BOOT_DOT_DEV_NULL_TERMINATOR_CHAR)
 		{
 			printf("Match final\n");
 			return start_char;

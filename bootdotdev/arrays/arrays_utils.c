@@ -9,7 +9,7 @@ void test_arr_creation_and_access()
 
 	// static const int arr_size = 5;
 	// 10, 20, 30, 40, 50
-	int arr[TEST_ARR_CREATION_AND_ACCESS_SIZE] = {10, 20, 30, 40, 50};
+	int arr[BOOT_DOT_DEV_TEST_ARR_CREATION_AND_ACCESS_SIZE] = {10, 20, 30, 40, 50};
 	// {};
 	// arr[0] = 10;
 	// arr[1] = 20;
@@ -21,7 +21,7 @@ void test_arr_creation_and_access()
 
 	printf("arr: %p\n", arr);
 	printf("Testing the array, its address and its elements, using arr[]:\n");
-	for (int i = 0; i < TEST_ARR_CREATION_AND_ACCESS_SIZE; ++i)
+	for (int i = 0; i < BOOT_DOT_DEV_TEST_ARR_CREATION_AND_ACCESS_SIZE; ++i)
 	{
 		printf("%p: %d\n", &arr[i], arr[i]);
 	}
@@ -33,7 +33,7 @@ void test_arr_creation_and_access()
 	int *arr_ptr = arr;
 	printf("arr_ptr: %p\n", arr_ptr);
 
-	for (int i = 0; i < TEST_ARR_CREATION_AND_ACCESS_SIZE; ++i)
+	for (int i = 0; i < BOOT_DOT_DEV_TEST_ARR_CREATION_AND_ACCESS_SIZE; ++i)
 	{
 		// `arr_ptr + i` is the address of the i-th element of arr
 		// `*(arr_ptr + i)` is the value of the i-th element of arr
