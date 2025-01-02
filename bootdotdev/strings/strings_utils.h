@@ -1,5 +1,5 @@
-#ifndef STRINGS_UTILS_H
-#define STRINGS_UTILS_H
+#ifndef BOOT_DOT_DEV_STRINGS_UTILS_H
+#define BOOT_DOT_DEV_STRINGS_UTILS_H
 
 /**
  *
@@ -205,4 +205,4 @@ char *pos = strstr(str, "World");
 
 */
 
-#endif // STRING_UTILS_H
+#endif // BOOT_DOT_DEV_STRING_UTILS_H

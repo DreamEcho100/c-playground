@@ -1,10 +1,10 @@
 
 #include <stddef.h>
 
-#ifndef TEXT_BUFFER_INDEX_H
-#define TEXT_BUFFER_INDEX_H
+#ifndef BOOT_DOT_DEV_TEXT_BUFFER_INDEX_H
+#define BOOT_DOT_DEV_TEXT_BUFFER_INDEX_H
 
-#define TEXT_BUFFER_MAX_BUFFER 64
+#define BOOT_DOT_DEV_TEXT_BUFFER_MAX_BUFFER 64
 
 typedef struct
 {
@@ -14,4 +14,4 @@ typedef struct
 
 int smart_append(TextBuffer *dest, const char *src);
 void test_smart_append();
-#endif // TEXT_BUFFER_INDEX_H
+#endif // BOOT_DOT_DEV_TEXT_BUFFER_INDEX_H

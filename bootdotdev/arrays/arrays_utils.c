@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "./arrays_utils.h"
 
-#define TEST_ARR_CREATION_AND_ACCESS_SIZE 5
+#define BOOT_DOT_DEV_TEST_ARR_CREATION_AND_ACCESS_SIZE 5
 
 void test_arr_creation_and_access()
 {

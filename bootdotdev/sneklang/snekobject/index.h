@@ -1,5 +1,5 @@
-#ifndef SNEKLANG_SNEKOBJECT_INDEX_H
-#define SNEKLANG_SNEKOBJECT_INDEX_H
+#ifndef BOOT_DOT_DEV_SNEKLANG_SNEKOBJECT_INDEX_H
+#define BOOT_DOT_DEV_SNEKLANG_SNEKOBJECT_INDEX_H
 
 #include <stdbool.h>
 
@@ -69,6 +69,6 @@ snek_object_t *snek_add(vm_t *vm, snek_object_t *a, snek_object_t *b);
 // void refcount_free(snek_object_t *obj);
 // void refcount_inc(snek_object_t *obj);
 // void refcount_dec(snek_object_t *obj);
-#endif // SNEKLANG_SNEKOBJECT_INDEX_H
+#endif // BOOT_DOT_DEV_SNEKLANG_SNEKOBJECT_INDEX_H
 
 void snek_object_free(snek_object_t *obj);

@@ -4,11 +4,11 @@
 
 #include <stddef.h> // For size_t
 // Error codes for strncat_s
-#define STRNCAT_S_OK 0
-#define STRNCAT_S_ERR_INVALID_PARAM 22
-#define STRNCAT_S_ERR_TRUNCATION 24
-#define SIZE_MAX 4294967295
-#define NULL_TERMINATOR_CHAR ('\0')
+#define BOOT_DOT_DEV_STRNCAT_S_OK 0
+#define BOOT_DOT_DEV_STRNCAT_S_ERR_INVALID_PARAM 22
+#define BOOT_DOT_DEV_STRNCAT_S_ERR_TRUNCATION 24
+#define BOOT_DOT_DEV_SIZE_MAX 4294967295
+#define BOOT_DOT_DEV_NULL_TERMINATOR_CHAR ('\0')
 
 void nih_strcat(char *str1, const char *str2)
 {

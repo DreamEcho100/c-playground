@@ -1,5 +1,5 @@
-#ifndef VM_UTILS_H
-#define VM_UTILS_H
+#ifndef BOOT_DOT_DEV_VM_UTILS_H
+#define BOOT_DOT_DEV_VM_UTILS_H
 
 #include "../stack/index.h"
 #include "../snek_object_t.h"
@@ -37,4 +37,4 @@ void trace_mark_object(stack_t *gray_objects, snek_object_t *obj);
 void vm_collect_garbage(vm_t *vm);
 void sweep(vm_t *vm);
 
-#endif // VM_UTILS_H
+#endif // BOOT_DOT_DEV_VM_UTILS_H

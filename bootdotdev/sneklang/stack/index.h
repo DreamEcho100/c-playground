@@ -1,6 +1,6 @@
 
-#ifndef STACK_UTILS_H
-#define STACK_UTILS_H
+#ifndef BOOT_DOT_DEV_STACK_UTILS_H
+#define BOOT_DOT_DEV_STACK_UTILS_H
 #include <stdlib.h>
 
 typedef struct Stack
@@ -32,4 +32,4 @@ void stack_print(stack_t *stack, const char *format_str);
 
 void test_stack();
 
-#endif // STACK_UTILS_H
+#endif // BOOT_DOT_DEV_STACK_UTILS_H

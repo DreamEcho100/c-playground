@@ -1,7 +1,7 @@
 // array_utils.h
-#ifndef ARRAYS_UTILS_H
-#define ARRAYS_UTILS_H
+#ifndef BOOT_DOT_DEV_ARRAYS_UTILS_H
+#define BOOT_DOT_DEV_ARRAYS_UTILS_H
 
 void test_arr_creation_and_access();
 
-#endif // ARRAY_UTILS_H
+#endif // BOOT_DOT_DEV_ARRAY_UTILS_H
