@@ -95,6 +95,8 @@ void playerMove(tic_tac_toe_manager_t *tic_tac_toe_manager)
 	{
 		printf("Please select from the available free position\n");
 		scanf(" %d", &selected_pos);
+		while (getchar() != '\n')
+			;
 
 		if (selected_pos < 0 || selected_pos > tic_tac_toe_manager->movements_total)
 		{
@@ -166,6 +168,8 @@ void startGame()
 
 		printf("Select your role (\"X\" or \"O\"): \n");
 		scanf(" %c", &tic_tac_toe_manager.player_move_type);
+		while (getchar() != '\n')
+			;
 		tic_tac_toe_manager.player_move_type = toupper(tic_tac_toe_manager.player_move_type);
 
 		if (tic_tac_toe_manager.player_move_type == X_MOVE || tic_tac_toe_manager.player_move_type == O_MOVE)
