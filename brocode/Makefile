@@ -57,4 +57,4 @@ clean:
 # .PHONY tells make that these targets are not actual files.
 .PHONY: all run clean
 
-# make && ./main && make clean
+# make && ./main && make clean # Note if an error happened for the `./main` you will have to `make clean` again
