@@ -49,9 +49,9 @@ void printBoard(tic_tac_toe_manager_t *tic_tac_toe_manager)
 		int j;
 		int k;
 		int idx;
-		for (j = 0; j < tic_tac_toe_manager->column_size; j++)
+		for (j = 0; j < tic_tac_toe_manager->column_size; ++j)
 		{
-			for (k = 0; k < block_size; k++)
+			for (k = 0; k < block_size; ++k)
 			{
 				idx = (j * block_size) + (k);
 				block[idx] = ' ';
@@ -96,7 +96,8 @@ void playerMove(tic_tac_toe_manager_t *tic_tac_toe_manager)
 	int selected_pos;
 	while (true)
 	{
-		printf("Please select from the available free position\n");
+		printf("Please select a position (1-%d) from the available free spaces: \n", tic_tac_toe_manager->movements_total);
+
 		scanf(" %d", &selected_pos);
 		while (getchar() != '\n')
 			;
@@ -153,59 +154,63 @@ bool checkActiveUserMoves(tic_tac_toe_manager_t *tic_tac_toe_manager)
 
 	char move_type = tic_tac_toe_manager->active_user == USER_PLAYER ? tic_tac_toe_manager->player_move_type : tic_tac_toe_manager->computer_move_type;
 
-	int acc = 0;
+	int dir_size = tic_tac_toe_manager->grid_dir_size;
+	bool hadWon = false;
 
-	// Check horizontal moves
-	for (int r = 0; r < tic_tac_toe_manager->row_size; ++r)
+	for (int i = 0; i < dir_size; ++i)
 	{
-
-		acc = 0;
-		for (int c = 0; c < tic_tac_toe_manager->column_size; c++)
+		hadWon = true;
+		// Traversing horizontally
+		for (int j = 0; j < dir_size; ++j)
 		{
-			if (tic_tac_toe_manager->moves[r][c] != move_type)
+			if (tic_tac_toe_manager->moves[i][j] != move_type)
 			{
-				break;
+				hadWon = false;
+				// break;
 			}
-
-			acc++;
 		}
-
-		if (acc == tic_tac_toe_manager->grid_dir_size)
-		{
+		if (hadWon)
 			return true;
+
+		hadWon = true;
+		// Traversing vertically
+		for (int j = 0; j < dir_size; ++j)
+		{
+			if (tic_tac_toe_manager->moves[j][i] != move_type)
+			{
+				hadWon = false;
+				// break;
+			}
 		}
+		if (hadWon)
+			return true;
 	}
 
-	acc = 0;
-	// Check vertical moves
-	for (int c = 0; c < tic_tac_toe_manager->row_size; ++c)
+	hadWon = true;
+	// Traversing diagonally (LTR)
+	for (int i = 0; i < dir_size; ++i)
 	{
-
-		for (int r = 0; r < tic_tac_toe_manager->column_size; r++)
+		if (tic_tac_toe_manager->moves[i][i] != move_type)
 		{
-			if (tic_tac_toe_manager->moves[r][c] != move_type)
-			{
-				break;
-			}
-
-			acc++;
-		}
-
-		if (acc == tic_tac_toe_manager->grid_dir_size)
-		{
-			return true;
+			hadWon = false;
+			// break;
 		}
 	}
-
-	// Check diagonal moves
-	acc = 0;
-
-	if (acc == tic_tac_toe_manager->grid_dir_size)
-	{
+	if (hadWon)
 		return true;
+
+	hadWon = true;
+	// Traversing diagonally (RTL)
+	for (int i = 0; i < dir_size; ++i)
+	{
+		if (tic_tac_toe_manager->moves[i][dir_size - i - 1] != move_type)
+		{
+			hadWon = false;
+			// break;
+		}
 	}
 
-	return false;
+	return hadWon;
 }
 
 // Note: in progress
