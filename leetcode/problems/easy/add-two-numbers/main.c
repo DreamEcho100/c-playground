@@ -72,6 +72,13 @@ list_node_t *addTwoNumbers(list_node_t *l1, list_node_t *l2)
 		list_node_t *newNode = malloc(sizeof(list_node_t));
 		if (newNode == NULL)
 		{
+			// Free all previously allocated nodes
+			while (beforeHead != NULL)
+			{
+				list_node_t *temp = beforeHead;
+				beforeHead = beforeHead->next;
+				free(temp);
+			}
 			return NULL;
 		}
 
