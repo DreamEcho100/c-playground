@@ -4,8 +4,7 @@ You:
 
 Now what do you think of my implementation
 
-```
-c
+```c
 /*
  * 13. Roman to Integer
  * Easy
@@ -688,8 +687,7 @@ You:
 
 OK, now I kinda get it *(it still puzzling me a little)*, what do you think of my final solution?
 
-```
-c
+```c
 int romanToInt(char *s)
 {
  int symbolToValue[89] = {0};
@@ -868,8 +866,7 @@ You:
 
 What do you think of my new implementation, is it any better or worse?
 
-```
-c
+```c
 static inline int getRomanVal(int c)
 {
 
