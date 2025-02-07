@@ -58,7 +58,7 @@ typedef struct HasMap
 {
     int key;
     int value;
-} has_map_t;
+} hash_map_t;
 
 int hashKey(int k)
 {
@@ -68,7 +68,7 @@ int hashKey(int k)
 int *twoSum(int *nums, int numsSize, int target, int *returnSize)
 {
     // Create hash map
-    has_map_t *numberToIndexMap = (has_map_t *)malloc(sizeof(has_map_t) * HASH_MAP_MAX);
+    hash_map_t *numberToIndexMap = (hash_map_t *)malloc(sizeof(hash_map_t) * HASH_MAP_MAX);
 
     // Init it with -1
     for (unsigned int i = 0; i < HASH_MAP_MAX; i++)
@@ -187,26 +187,26 @@ typedef struct HasMap
     int key;
     int value;
     struct HasMap* next;
-} has_map_t;
+} hash_map_t;
 
 int hashKey(int k)
 {
     return abs(k) % HASH_MAP_MAX;
 }
 
-has_map_t* createNewNode(int key, int value)
+hash_map_t* createNewNode(int key, int value)
 {
-    has_map_t* newNode = (has_map_t*)malloc(sizeof(has_map_t));
+    hash_map_t* newNode = (hash_map_t*)malloc(sizeof(hash_map_t));
     newNode->key = key;
     newNode->value = value;
     newNode->next = NULL;
     return newNode;
 }
 
-void insertToMap(has_map_t* map[], int key, int value)
+void insertToMap(hash_map_t* map[], int key, int value)
 {
     int index = hashKey(key);
-    has_map_t* newNode = createNewNode(key, value);
+    hash_map_t* newNode = createNewNode(key, value);
     
     if (map[index] == NULL)
     {
@@ -214,7 +214,7 @@ void insertToMap(has_map_t* map[], int key, int value)
     }
     else
     {
-        has_map_t* temp = map[index];
+        hash_map_t* temp = map[index];
         while (temp->next != NULL)
         {
             temp = temp->next;
@@ -223,10 +223,10 @@ void insertToMap(has_map_t* map[], int key, int value)
     }
 }
 
-int* findInMap(has_map_t* map[], int key)
+int* findInMap(hash_map_t* map[], int key)
 {
     int index = hashKey(key);
-    has_map_t* temp = map[index];
+    hash_map_t* temp = map[index];
     while (temp != NULL)
     {
         if (temp->key == key)
@@ -238,14 +238,14 @@ int* findInMap(has_map_t* map[], int key)
     return NULL;
 }
 
-void freeHashMap(has_map_t* map[])
+void freeHashMap(hash_map_t* map[])
 {
     for (int i = 0; i < HASH_MAP_MAX; i++)
     {
-        has_map_t* temp = map[i];
+        hash_map_t* temp = map[i];
         while (temp != NULL)
         {
-            has_map_t* toFree = temp;
+            hash_map_t* toFree = temp;
             temp = temp->next;
             free(toFree);
         }
@@ -254,7 +254,7 @@ void freeHashMap(has_map_t* map[])
 
 int *twoSum(int *nums, int numsSize, int target, int *returnSize)
 {
-    has_map_t* numberToIndexMap[HASH_MAP_MAX] = {0};  // Initialize the hash map
+    hash_map_t* numberToIndexMap[HASH_MAP_MAX] = {0};  // Initialize the hash map
 
     for (int i = 0; i < numsSize; i++)
     {
@@ -307,7 +307,7 @@ int main()
 ### Key Changes
 
 1. **Collision Handling**:
-   - I implemented chaining in the hash table (`next` pointers in `has_map_t`), which allows multiple elements to be stored in the same hash bucket if they hash to the same index.
+   - I implemented chaining in the hash table (`next` pointers in `hash_map_t`), which allows multiple elements to be stored in the same hash bucket if they hash to the same index.
    - The `insertToMap` function now handles collisions by adding new elements to the end of the linked list at the hashed index.
 
 2. **Find Function**:

@@ -7,7 +7,7 @@ typedef struct HasMap
 {
 	int key;
 	int value;
-} has_map_t;
+} hash_map_t;
 
 int hashKey(int k)
 {
@@ -56,7 +56,7 @@ int hashKey(int k)
 int *twoSum(int *nums, int numsSize, int target, int *returnSize)
 {
 	// Create hash map
-	has_map_t *numberToIndexMap = (has_map_t *)malloc(sizeof(has_map_t) * HASH_MAP_MAX);
+	hash_map_t *numberToIndexMap = (hash_map_t *)malloc(sizeof(hash_map_t) * HASH_MAP_MAX);
 
 	// Init it with -10000, that's only a dump implementation and could be improved
 	for (unsigned int i = 0; i < HASH_MAP_MAX; i++)

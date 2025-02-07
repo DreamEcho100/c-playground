@@ -66,13 +66,13 @@ typedef struct HasMap
 {
  int key;
  int value;
-} has_map_t;
+} hash_map_t;
 
 int hashKey(int k)
 {
  return abs(k) % HASH_MAP_MAX;
 }
-has_map_t hashMapAddKeyValue(has_map_t *hashMap, int k, int v)
+hash_map_t hashMapAddKeyValue(hash_map_t *hashMap, int k, int v)
 {
  int hash = hashKey(k);
  hashMap[hash].key = hash;
@@ -80,7 +80,7 @@ has_map_t hashMapAddKeyValue(has_map_t *hashMap, int k, int v)
 
  return hashMap[hash];
 }
-int hashMapGetValue(has_map_t *hashMap, int k)
+int hashMapGetValue(hash_map_t *hashMap, int k)
 {
  int hash = hashKey(k);
  return hashMap[hash].key;
@@ -88,7 +88,7 @@ int hashMapGetValue(has_map_t *hashMap, int k)
 
 int romanToInt(char *s)
 {
- has_map_t *symbolToValueMap = malloc(sizeof(has_map_t) * HASH_MAP_MAX);
+ hash_map_t *symbolToValueMap = malloc(sizeof(hash_map_t) * HASH_MAP_MAX);
 
  hashMapAddKeyValue(symbolToValueMap, 'I', 1);
  hashMapAddKeyValue(symbolToValueMap, 'V', 5);
