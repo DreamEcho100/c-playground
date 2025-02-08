@@ -115,7 +115,7 @@ list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
 
 ChatGPT:
 
-Your implementation has some good ideas, but it has a few issues and inefficiencies that can lead to logical errors, memory leaks, or unnecessary complexity. Let’s go over the main points and suggest improvements.
+Your implementation has some good ideas, but it has a few issues and inefficiencies that can lead to logical errors, memory leaks, or unnecessary complexity. Let's go over the main points and suggest improvements.
 
 ---
 
@@ -123,7 +123,7 @@ Your implementation has some good ideas, but it has a few issues and inefficienc
 
 1. **Improper Handling of Final `newListNode`** :
 
-- At the end of the list construction, you’re calling `free(newListNode)`, but this points to the last (unused) allocated node in the list. It doesn't "clean up" properly because you're leaving a dangling pointer.
+- At the end of the list construction, you're calling `free(newListNode)`, but this points to the last (unused) allocated node in the list. It doesn't "clean up" properly because you're leaving a dangling pointer.
 
 - Instead, you should stop allocating a new node after the final value is added, and explicitly terminate the list with `newListNode->next = NULL`.
 
@@ -149,7 +149,7 @@ Your implementation has some good ideas, but it has a few issues and inefficienc
 
 ### Cleaner and Safer Implementation
 
-Here’s an improved implementation of your function:
+Here's an improved implementation of your function:
 
 ```c
 list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
@@ -201,7 +201,7 @@ list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
 
 4. **Avoided Memory Leak** :
 
-- There’s no need to allocate or free extra memory, so the risk of memory leaks is eliminated.
+- There's no need to allocate or free extra memory, so the risk of memory leaks is eliminated.
 
 5. **Simpler Code** :
 
@@ -238,11 +238,11 @@ OK, but I'm confused now
 
 ChatGPT:
 
-Great questions! You're thinking critically, and that's awesome! Let’s break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
+Great questions! You're thinking critically, and that's awesome! Let's break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
 
 ---
 
-**Great questions! You're thinking critically, and that's awesome! Let’s break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
+**Great questions! You're thinking critically, and that's awesome! Let's break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
 
 ---
 
@@ -252,7 +252,7 @@ Great questions! You're thinking critically, and that's awesome! Let’s break t
 
 - However, if you are simply *linking* existing heap-allocated nodes (`list1` and `list2`) together, there's no need to allocate new memory.
 
-Let’s clarify:
+Let's clarify:
 
 - The `dummy` node is just a placeholder for managing pointers while merging.
 
@@ -261,16 +261,16 @@ When you return `dummy.next`, you're not returning a pointer to a local (stack) 
 
 ---
 
-**2. Heap vs. Stack: How to decide?** The difference between **heap**  and **stack**  boils down to *lifetime* and *control*. Let’s break it into simple rules:**Stack (automatic memory):**  
+**2. Heap vs. Stack: How to decide?** The difference between **heap**  and **stack**  boils down to *lifetime* and *control*. Let's break it into simple rules:**Stack (automatic memory):**  
 
 - **Lifetime:**  Short-lived; automatically freed when the function ends.
 
 - **Scope:**  Limited to the function or block where it's defined.
 
 - **When to use:**
-  - For small, temporary variables that don’t need to persist beyond the function's execution (e.g., loop counters, temporary buffers, etc.).
+  - For small, temporary variables that don't need to persist beyond the function's execution (e.g., loop counters, temporary buffers, etc.).
 
-  - When you don’t need manual control over the memory.
+  - When you don't need manual control over the memory.
 
 - **Examples:**  
   - Primitive types (`int`, `char`, etc.) inside functions.
@@ -279,7 +279,7 @@ When you return `dummy.next`, you're not returning a pointer to a local (stack) 
 **Heap (dynamic memory):**  
 - **Lifetime:**  Long-lived; persists until you manually free it with `free`.
 
-- **Scope:**  Accessible anywhere via a pointer, as long as you don’t free it.
+- **Scope:**  Accessible anywhere via a pointer, as long as you don't free it.
 
 - **When to use:**
   - For large or dynamically sized data (e.g., allocating memory based on user input).
@@ -306,21 +306,21 @@ In C:
 
 - YOU control the memory explicitly.
 
-- Stack memory is fast and safe, but it’s limited in size and lifetime.
+- Stack memory is fast and safe, but it's limited in size and lifetime.
 
 - Heap memory is flexible but requires manual allocation (`malloc`) and deallocation (`free`).
 
 #### Analogy
 
-Think of the **stack**  like a to-do list on your desk: small, quick to grab, and cleared at the end of the day. The **heap** , on the other hand, is like a storage unit: you can put anything there, but you need to remember to clean it up when you’re done.
+Think of the **stack**  like a to-do list on your desk: small, quick to grab, and cleared at the end of the day. The **heap** , on the other hand, is like a storage unit: you can put anything there, but you need to remember to clean it up when you're done.
 
 ---
 
-**Great questions! You're thinking critically, and that's awesome! Let’s break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
+**Great questions! You're thinking critically, and that's awesome! Let's break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
 
 ---
 
-**Great questions! You're thinking critically, and that's awesome! Let’s break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
+**Great questions! You're thinking critically, and that's awesome! Let's break this down to make it clear when to use **heap**  vs. **stack**  in C, especially compared to how things work in JavaScript. Coming from JS, where most objects are heap-allocated and garbage-collected, it's natural to feel confused about this at first.
 
 ---
 
@@ -330,7 +330,7 @@ Think of the **stack**  like a to-do list on your desk: small, quick to grab, an
 
 - However, if you are simply *linking* existing heap-allocated nodes (`list1` and `list2`) together, there's no need to allocate new memory.
 
-Let’s clarify:
+Let's clarify:
 
 - The `dummy` node is just a placeholder for managing pointers while merging.
 
@@ -339,16 +339,16 @@ When you return `dummy.next`, you're not returning a pointer to a local (stack) 
 
 ---
 
-**2. Heap vs. Stack: How to decide?** The difference between **heap**  and **stack**  boils down to *lifetime* and *control*. Let’s break it into simple rules:**Stack (automatic memory):**  
+**2. Heap vs. Stack: How to decide?** The difference between **heap**  and **stack**  boils down to *lifetime* and *control*. Let's break it into simple rules:**Stack (automatic memory):**  
 
 - **Lifetime:**  Short-lived; automatically freed when the function ends.
 
 - **Scope:**  Limited to the function or block where it's defined.
 
 - **When to use:**
-  - For small, temporary variables that don’t need to persist beyond the function's execution (e.g., loop counters, temporary buffers, etc.).
+  - For small, temporary variables that don't need to persist beyond the function's execution (e.g., loop counters, temporary buffers, etc.).
 
-  - When you don’t need manual control over the memory.
+  - When you don't need manual control over the memory.
 
 - **Examples:**  
   - Primitive types (`int`, `char`, etc.) inside functions.
@@ -357,7 +357,7 @@ When you return `dummy.next`, you're not returning a pointer to a local (stack) 
 **Heap (dynamic memory):**  
 - **Lifetime:**  Long-lived; persists until you manually free it with `free`.
 
-- **Scope:**  Accessible anywhere via a pointer, as long as you don’t free it.
+- **Scope:**  Accessible anywhere via a pointer, as long as you don't free it.
 
 - **When to use:**
   - For large or dynamically sized data (e.g., allocating memory based on user input).
@@ -384,13 +384,13 @@ In C:
 
 - YOU control the memory explicitly.
 
-- Stack memory is fast and safe, but it’s limited in size and lifetime.
+- Stack memory is fast and safe, but it's limited in size and lifetime.
 
 - Heap memory is flexible but requires manual allocation (`malloc`) and deallocation (`free`).
 
 #### Analogy
 
-Think of the **stack**  like a to-do list on your desk: small, quick to grab, and cleared at the end of the day. The **heap** , on the other hand, is like a storage unit: you can put anything there, but you need to remember to clean it up when you’re done.
+Think of the **stack**  like a to-do list on your desk: small, quick to grab, and cleared at the end of the day. The **heap** , on the other hand, is like a storage unit: you can put anything there, but you need to remember to clean it up when you're done.
 
 ---
 
@@ -399,11 +399,11 @@ In the context of your function:
 
 - The `list1` and `list2` nodes are already on the heap (likely allocated by the caller). So, you're just *re-linking* their pointers, not creating new data. No extra allocation is needed unless the caller specifies otherwise.
 
-Here’s how to reason:
+Here's how to reason:
 
-- If the nodes were created on the stack in the caller, returning them from `mergeTwoLists` would be invalid (they’d be destroyed when the caller's function exits).
+- If the nodes were created on the stack in the caller, returning them from `mergeTwoLists` would be invalid (they'd be destroyed when the caller's function exits).
 
-- Since the nodes are passed in as arguments and already persist beyond `mergeTwoLists`, you don’t need to allocate new memory in most cases.
+- Since the nodes are passed in as arguments and already persist beyond `mergeTwoLists`, you don't need to allocate new memory in most cases.
 
 ---
 
@@ -437,13 +437,13 @@ void exampleHeap() {
 
 #### Your Case
 
-You don’t need to allocate new memory unless you’re creating entirely new nodes. Instead, you’re just rearranging the `next` pointers of nodes that already exist.
+You don't need to allocate new memory unless you're creating entirely new nodes. Instead, you're just rearranging the `next` pointers of nodes that already exist.
 
 ---
 
 **6. Key Takeaways**  
 
-- Use the **stack**  for short-lived variables that don’t need to persist beyond the current function.
+- Use the **stack**  for short-lived variables that don't need to persist beyond the current function.
 
 - Use the **heap**  when you need memory that persists beyond the function, or for data structures with unknown sizes at compile-time.
 
@@ -548,7 +548,7 @@ list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
 
 ChatGPT:
 
-Your implementation looks great! You’ve done an excellent job incorporating the key improvements. It’s clean, concise, and avoids unnecessary memory allocations or leaks. However, there's a **small typo in the while condition**  that could cause an infinite loop or unintended behavior. Let’s fix and finalize it.
+Your implementation looks great! You've done an excellent job incorporating the key improvements. It's clean, concise, and avoids unnecessary memory allocations or leaks. However, there's a **small typo in the while condition**  that could cause an infinite loop or unintended behavior. Let's fix and finalize it.
 
 ---
 
@@ -575,7 +575,7 @@ while (list1 != NULL && list2 != NULL)
 ---
 
 **Final, Polished Implementation**
-Here’s the corrected and polished version:
+Here's the corrected and polished version:
 
 ```c
 #include <stdlib.h>
@@ -619,7 +619,7 @@ list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
 
 ---
 
-**What’s Great About This Implementation**  
+**What's Great About This Implementation**  
 
 1. **Efficient and Safe** :
 
@@ -633,7 +633,7 @@ list_node_t *mergeTwoLists(list_node_t *list1, list_node_t *list2)
 
 3. **Minimal Code Duplication** :
 
-- The merging logic is simple and doesn’t repeat unnecessary loops.
+- The merging logic is simple and doesn't repeat unnecessary loops.
 
 4. **Handles All Edge Cases** :
 

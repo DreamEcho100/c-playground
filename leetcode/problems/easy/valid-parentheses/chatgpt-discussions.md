@@ -226,7 +226,7 @@ Write some test on the `main` for it
 
 ChatGPT:
 
-Here’s a `main` function with test cases for your `isValid` function. The tests cover various edge cases and typical scenarios to ensure your implementation works correctly:
+Here's a `main` function with test cases for your `isValid` function. The tests cover various edge cases and typical scenarios to ensure your implementation works correctly:
 
 ```c
 #include <stdio.h>
@@ -356,7 +356,7 @@ bool isValid(char *s)
 
 ChatGPT:
 
-Your final implementation looks solid! It addresses all the key issues and improvements I mentioned earlier. Great job on refining your code! Here’s a quick review:
+Your final implementation looks solid! It addresses all the key issues and improvements I mentioned earlier. Great job on refining your code! Here's a quick review:
 
 ### Strengths of Your Implementation
 
@@ -366,11 +366,11 @@ Your final implementation looks solid! It addresses all the key issues and impro
 
 2. **Proper Memory Management** :
 
-- You’ve added `free(stack)` in all exit paths, ensuring no memory leaks.
+- You've added `free(stack)` in all exit paths, ensuring no memory leaks.
 
 3. **Edge Case Handling** :
 
-- You’ve handled edge cases like empty stacks (`stackSize == 0`) and mismatched brackets properly.
+- You've handled edge cases like empty stacks (`stackSize == 0`) and mismatched brackets properly.
 
 4. **Readable and Concise** :
 
@@ -499,7 +499,7 @@ To submit for a leetcode comment
 
 ChatGPT:
 
-Here’s a clean and concise write-up for your LeetCode submission:
+Here's a clean and concise write-up for your LeetCode submission:
 
 ```vbnet
 # Intuition

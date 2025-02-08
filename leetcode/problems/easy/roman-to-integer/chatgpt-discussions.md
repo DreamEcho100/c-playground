@@ -176,7 +176,7 @@ hashMapAddKeyValue(symbolToValueMap, 'M', 00);  // Should be 1000
 
 ### Fixed and Optimized Implementation
 
-Here’s a corrected and simplified implementation:
+Here's a corrected and simplified implementation:
 
 ```c
 #include <stdio.h>
@@ -354,7 +354,7 @@ Roman Processed: IV
 
 ---
 
-Why Subtract `2 * prevValue`?To understand why we subtract **twice**  the previous value, let’s visualize what happens with `sum`:
+Why Subtract `2 * prevValue`?To understand why we subtract **twice**  the previous value, let's visualize what happens with `sum`:
 
 - **When we add 'I' (Step 1)** :
 We added `+1` to `sum` for 'I'.
@@ -376,7 +376,7 @@ We realize that this is a **subtractive pair (IV)** :
 
 ### ASCII Timeline of Changes
 
-Here’s an ASCII timeline for `IV`:
+Here's an ASCII timeline for `IV`:
 
 ```vbnet
 Step 1: Processing 'I'
@@ -392,7 +392,7 @@ Step 2: Processing 'V'
 
 ---
 
-Subtractive Rule in Action: `XIV`Let’s see how this works for a more complex example, `XIV`:
+Subtractive Rule in Action: `XIV`Let's see how this works for a more complex example, `XIV`:
 
 1. **Initial State** :
 
@@ -481,7 +481,7 @@ Still don't understand it, explain better with a harder example
 
 ChatGPT:
 
-Alright! Let’s work through a **harder example**  and break it down even more visually. We'll go step by step to clarify **Alright! Let’s work through a **harder example**  and break it down even more visually. We'll go step by step to clarify why we subtract `2 * prevValue`**  when encountering a subtractive pair. Let's use the Roman numeral **"MCMXCIV"** , which equals **1994** .
+Alright! Let's work through a **harder example**  and break it down even more visually. We'll go step by step to clarify **Alright! Let's work through a **harder example**  and break it down even more visually. We'll go step by step to clarify why we subtract `2 * prevValue`**  when encountering a subtractive pair. Let's use the Roman numeral **"MCMXCIV"** , which equals **1994** .
 
 ---
 
@@ -655,7 +655,7 @@ Roman Processed: MCMXCIV
 
 ---
 
-Why Subtract `2 * prevValue`?Let’s focus on **Step 3 (CM)**  to see why we subtract twice the `prevValue`.
+Why Subtract `2 * prevValue`?Let's focus on **Step 3 (CM)**  to see why we subtract twice the `prevValue`.
 When processing **MCM** , the algorithm first adds 100 (for `C`):
 
 ```yaml
@@ -790,7 +790,7 @@ if (s == NULL || *s == '\0') return 0; // Handle null or empty input
 ---
 
 **Final Revised Version** :
-Here’s your code with minor tweaks:
+Here's your code with minor tweaks:
 
 ```c
 int romanToInt(char *s)
@@ -846,7 +846,7 @@ int romanToInt(char *s)
 
 ---
 
-Example Walkthrough: **MCMXCIV** Let’s apply your implementation to `MCMXCIV` (1994):| Roman | currentValue | prevValue | Subtractive? | sum Update Logic | sum |
+Example Walkthrough: **MCMXCIV** Let's apply your implementation to `MCMXCIV` (1994):| Roman | currentValue | prevValue | Subtractive? | sum Update Logic | sum |
 | --- | --- | --- | --- | --- | --- |
 | M | 1000 | 0 | No | sum += 1000 | 1000 |
 | C | 100 | 1000 | No | sum += 100 | 1100 |
@@ -860,7 +860,7 @@ Example Walkthrough: **MCMXCIV** Let’s apply your implementation to `MCMXCIV` 
 
 ### Final Thoughts
 
-Your solution is **excellent** ! With the tweaks above, it handles edge cases, maintains readability, and performs efficiently. Plus, it’s a great demonstration of the **C mindset**  with direct memory usage and simplicity. 🎉
+Your solution is **excellent** ! With the tweaks above, it handles edge cases, maintains readability, and performs efficiently. Plus, it's a great demonstration of the **C mindset**  with direct memory usage and simplicity. 🎉
 
 You:
 
@@ -950,7 +950,7 @@ int romanToInt(char *s)
 
 ChatGPT:
 
-Your new implementation is **very clean and even more efficient** ! You've made thoughtful improvements, and here’s a detailed breakdown of what works well and what could be slightly refined:
+Your new implementation is **very clean and even more efficient** ! You've made thoughtful improvements, and here's a detailed breakdown of what works well and what could be slightly refined:
 
 ---
 
@@ -1016,7 +1016,7 @@ default:
 
 4. **Static Inline Justification** :
 
-- `static inline` is appropriate for `getRomanVal()` if the function is used only within this file and you prioritize inlining for performance. However, for a simple function like this, the compiler likely inlines it anyway. You could just use `inline` unless there’s a specific need for `static`.
+- `static inline` is appropriate for `getRomanVal()` if the function is used only within this file and you prioritize inlining for performance. However, for a simple function like this, the compiler likely inlines it anyway. You could just use `inline` unless there's a specific need for `static`.
 
 ---
 
@@ -1095,7 +1095,7 @@ int main()
 
 ---
 
-Example Walkthrough: **MCMXCIV** Let’s walk through the logic for `MCMXCIV` (1994):| Index | s[i] | currentValue | s[i+1] | nextValue | sum Update Logic | sum |
+Example Walkthrough: **MCMXCIV** Let's walk through the logic for `MCMXCIV` (1994):| Index | s[i] | currentValue | s[i+1] | nextValue | sum Update Logic | sum |
 | --- | --- | --- | --- | --- | --- | --- |
 | 0 | M | 1000 | C | 100 | sum += 1000 | 1000 |
 | 1 | C | 100 | M | 1000 | sum -= 100 | 900 |

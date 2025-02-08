@@ -1,4 +1,4 @@
-#
+# Chatgpt Discussions
 
 ## ChatGPT final code review
 
@@ -43,8 +43,8 @@ Your new implementation is looking great! You've applied the necessary changes a
   - If the input is already sorted (this might affect performance, but it's something to consider for a real-world application).
   
 - **Efficiency**:
-  - Since the problem guarantees exactly one solution, you can be sure that the first match will always work, so you don’t need to keep searching once a solution is found.
-  - It could be worthwhile to use a `for` loop with `returnSize` incrementing to eliminate `malloc` calls in case of multiple results (though for this specific problem, there’s only one valid result).
+  - Since the problem guarantees exactly one solution, you can be sure that the first match will always work, so you don't need to keep searching once a solution is found.
+  - It could be worthwhile to use a `for` loop with `returnSize` incrementing to eliminate `malloc` calls in case of multiple results (though for this specific problem, there's only one valid result).
 
 ### Optimized Code Version
 
@@ -161,7 +161,7 @@ For example:
 
 - When `i = 0`, the number `0` has a complement of `-1`, but `-1` hasn't been stored yet.
 - When `i = 1`, the number `3` has a complement of `-4`, but no other values match `-4` yet.
-- When `i = 2`, the number `-3` has a complement of `2`, which hasn’t been seen either.
+- When `i = 2`, the number `-3` has a complement of `2`, which hasn't been seen either.
 - When `i = 3`, the number `4` has a complement of `-5`, and similarly, no other values match.
 - When `i = 4`, the number `-1` has a complement of `0`, which is present, but it doesn't find it in the current scenario due to hash collisions.
 
@@ -173,7 +173,7 @@ You can fix the issue by **directly mapping numbers to their indices** without w
 
 ### Updated Solution
 
-To resolve collisions and directly map the numbers to their indices, you can use a more dynamic hash map structure or improve the current approach with proper collision handling. Here’s how you can implement the fix:
+To resolve collisions and directly map the numbers to their indices, you can use a more dynamic hash map structure or improve the current approach with proper collision handling. Here's how you can implement the fix:
 
 ```c
 #include <stdlib.h>

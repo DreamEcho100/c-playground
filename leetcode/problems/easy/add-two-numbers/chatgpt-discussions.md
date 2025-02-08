@@ -116,7 +116,7 @@ list_node_t *addTwoNumbers(list_node_t *l1, list_node_t *l2)
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-Your final solution looks clean and efficient! It correctly addresses the issues I pointed out earlier. Here’s a quick review and comments:
+Your final solution looks clean and efficient! It correctly addresses the issues I pointed out earlier. Here's a quick review and comments:
 
 ---
 
@@ -151,7 +151,7 @@ Your final solution looks clean and efficient! It correctly addresses the issues
 
 ### **Minor Enhancements (Optional):**
 
-Here’s how you could enhance the memory cleanup in case of allocation failures:
+Here's how you could enhance the memory cleanup in case of allocation failures:
 
 ```c
 list_node_t *addTwoNumbers(list_node_t *l1, list_node_t *l2)
@@ -215,7 +215,7 @@ The memory cleanup ensures that your program is robust even in cases of partial 
 
 ---
 
-If you're happy with the current implementation and don’t want to add cleanup logic, it’s fine—the function is solid for practical use!
+If you're happy with the current implementation and don't want to add cleanup logic, it's fine—the function is solid for practical use!
 
 Great job on your progress! Let me know if you'd like additional feedback or challenges! 😊
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
@@ -383,7 +383,7 @@ Explain with a harder output
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
 
 *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
-Let’s work through a **harder example** to show how the algorithm handles longer lists, uneven lengths, and a non-zero carry at the end.
+Let's work through a **harder example** to show how the algorithm handles longer lists, uneven lengths, and a non-zero carry at the end.
 
 ---
 
@@ -611,7 +611,7 @@ Represents: 10009998 in reverse order.
 
 ### **ASCII Art Summary**
 
-Here’s a visual of how the result builds up during each step:
+Here's a visual of how the result builds up during each step:
 
 ```plaintext
 Step 1: beforeHead -> 8
