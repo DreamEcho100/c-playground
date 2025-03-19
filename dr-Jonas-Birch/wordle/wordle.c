@@ -1,4 +1,4 @@
-// Stopped at [03:22:35]
+// Stopped at [03:35:25]
 #include <assert.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -25,22 +25,25 @@ typedef enum { ResultRed = 4, ResultYellow = 2, ResultGreen = 1 } ResultColor;
 typedef enum { ValOK = 0, ValBadInput = 1, ValNoSuchWord = 2 } ValStatus;
 typedef struct game_config {
   bool continuation;
+  bool hasWon;
   int rounds;
   bool corrects[WORD_LENGTH];
   char correctWord[WORD_LENGTH + 1];
   Words words;
-  int turns;
+  // int turns;
 } GameConfig;
 
 bool charInWord(const char target, const char *word);
-char compareChar(const char guess, int index, const char *word);
-void compareWord(char *res, const char *guess, const char *word);
+char compareChar(GameConfig *gameConfig, const char guess, int index,
+                 const char *word);
+void compareWord(GameConfig *gameConfig, char *res, const char *guess,
+                 const char *word);
 void print_results(char *res, const char *guess, char *correct);
 void seedWords(const char *filname, Words *words);
-void seedRandomWord(char *randomWord, Words *words);
-void readLine(char buf[WORD_LENGTH + 2]);
+void seedRandomWord(GameConfig *gameConfig);
+void readLine(char buf[WORD_LENGTH + 3]);
 void gameLoop(GameConfig *gameConfig);
-void prompet(GameConfig *gameConfig);
+void prompt(GameConfig *gameConfig);
 ValStatus validator(GameConfig *gameConfig, char *word);
 
 // We can use `strchr(word, target) != NULL` instead
@@ -56,12 +59,16 @@ bool charInWord(const char target, const char *word) {
   return false;
 }
 
-char compareChar(const char guess, int index, const char *word) {
+char compareChar(GameConfig *gameConfig, const char guess, int index,
+                 const char *word) {
   char correct = word[index];
 
   if (guess == correct) {
+    gameConfig->corrects[index] = true;
     return ResultGreen;
   }
+
+  gameConfig->corrects[index] = false;
 
   if (charInWord(guess, word)) {
     return ResultYellow;
@@ -70,21 +77,25 @@ char compareChar(const char guess, int index, const char *word) {
   return ResultRed;
 }
 
-void compareWord(char *res, const char *guess, const char *word) {
+void compareWord(GameConfig *gameConfig, char *res, const char *guess,
+                 const char *word) {
   int i;
   for (i = 0; i < WORD_LENGTH; i++) {
-    res[i] = compareChar(guess[i], i, word);
+    res[i] = compareChar(gameConfig, guess[i], i, word);
   }
 }
-void prompet(GameConfig *gameConfig) {
-  int i = 0;
-  for (; i < WORD_LENGTH; i++) {
-    if (gameConfig->corrects[i]) {
-      printf("%c", gameConfig->corrects[i]);
-      continue;
-    }
+void prompt(GameConfig *gameConfig) {
 
-    printf("-");
+  printf("  ");
+  for (int i = 0; i < WORD_LENGTH; i++) {
+    printf("%c", gameConfig->corrects[i] ? 'o' : 'x');
+
+    // if (gameConfig->corrects[i]) {
+    //   printf("%c", gameConfig->corrects[i]);
+    //   continue;
+    // }
+
+    // printf("-");
   }
   printf("\n\n> ");
   fflush(stdout);
@@ -140,9 +151,8 @@ void seedWords(const char *filPath, Words *words) {
 
   // nylon\n\0
   // 01234 5 6
-
-  int i = 0;
-  while (fgets(buf, WORD_LENGTH + 2, fd) && i < TOTAL_WORDS_SIZE) {
+  words->n = 0;
+  while (fgets(buf, WORD_LENGTH + 2, fd) && words->n < TOTAL_WORDS_SIZE) {
 
     int size = strlen(buf);
     // printf("size: %d\n", size);
@@ -154,21 +164,20 @@ void seedWords(const char *filPath, Words *words) {
       size--;
     }
 
-    printf("word:c%s, size: %d\n", buf, size);
     if (size != WORD_LENGTH) { // Expecting only 5 letters
       printf("Skipping malformed word: '%s' (size: %d)\n", buf, size);
       continue;
     }
 
-    // strncpy(words->arr[i], buf, WORD_LENGTH);
-    memcpy(words->arr[i], buf, WORD_LENGTH);
-    i++;
+    // strncpy(words->arr[words->n], buf, WORD_LENGTH);
+    memcpy(words->arr[words->n], buf, WORD_LENGTH);
+    words->n++;
   }
 
   // Alt:
   // ```c
   // memset(buf, 0, READ_FILE_BUF_LINE_SIZE);
-  // while (fgets(buf, WORD_LENGTH + 1, fd) && i < max) {
+  // while (fgets(buf, WORD_LENGTH + 1, fd) && words->n < max) {
   //   int size = strlen(buf);
   //
   //   if (size < 1) {
@@ -186,13 +195,13 @@ void seedWords(const char *filPath, Words *words) {
   //
   //   int j = 0;
   //   for (; j < WORD_LENGTH; j++) {
-  //     words->arr[i][j] = buf[j];
+  //     words->arr[words->n][j] = buf[j];
   //   }
-  //   words->arr[i][WORD_LENGTH] = 0;
+  //   words->arr[words->n][WORD_LENGTH] = 0;
   //
   //   memset(buf, 0, READ_FILE_BUF_LINE_SIZE);
   //
-  //   i++;
+  //   words->n++;
   // }
   // ```
 
@@ -207,8 +216,6 @@ void seedWords(const char *filPath, Words *words) {
     fprintf(stderr, "No valid words loaded. Exiting.\n");
     exit(EXIT_FAILURE);
   }
-
-  words->n = i;
 }
 
 void readLine(char buf[WORD_LENGTH + 3]) {
@@ -233,10 +240,11 @@ void readLine(char buf[WORD_LENGTH + 3]) {
   // }
 }
 
-void seedRandomWord(char *randomWord, Words *words) {
+void seedRandomWord(GameConfig *gameConfig) {
   unsigned int seed = time(NULL);
-  int randomIndex = rand_r(&seed) % words->n;
-  strncpy(randomWord, words->arr[randomIndex], WORD_LENGTH);
+  int randomIndex = rand_r(&seed) % gameConfig->words.n;
+  strncpy(gameConfig->correctWord, gameConfig->words.arr[randomIndex],
+          WORD_LENGTH);
 }
 
 ValStatus validator(GameConfig *gameConfig, char *word) {
@@ -269,9 +277,24 @@ void gameLoop(GameConfig *gameConfig) {
   char input[WORD_LENGTH + 3];
   char res[WORD_LENGTH] = {0};
 
-  prompet(gameConfig);
+  gameConfig->rounds++;
+
   readLine(input);
-  compareWord(res, input, gameConfig->correctWord);
+  compareWord(gameConfig, res, input, gameConfig->correctWord);
+  prompt(gameConfig);
+
+  gameConfig->hasWon = true;
+
+  for (int i = 0; i < WORD_LENGTH; i++) {
+    if (!gameConfig->corrects[i]) {
+      gameConfig->hasWon = false;
+    }
+  }
+
+  if (gameConfig->hasWon || gameConfig->rounds >= 4) {
+    gameConfig->continuation = false;
+    return;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -283,24 +306,29 @@ int main(int argc, char *argv[]) {
       .corrects = {false},
       .correctWord = {0},
       .continuation = true,
-      .turns = 0,
+      .hasWon = false,
+      // .turns = 0,
   };
 
   seedWords(WORDS_FILE_PATH, &gameConfig.words);
 
   assert(!(gameConfig.words.n < 0));
 
-  printf("n: %d\n", gameConfig.words.n);
-  printf("nr: 100: '%s'\n", gameConfig.words.arr[99]);
-
-  seedRandomWord(gameConfig.correctWord, &gameConfig.words);
+  seedRandomWord(&gameConfig);
+  printf("cw: %s\n", gameConfig.correctWord);
 
   printf("-----\n\n> ");
   fflush(stdout);
 
-  // corrects
   while (gameConfig.continuation) {
     gameLoop(&gameConfig);
+  }
+
+  printf("Correct word: %s\n", gameConfig.correctWord);
+  if (gameConfig.hasWon) {
+    printf("Congratulations! You won!\n");
+  } else {
+    printf("You lost. Better luck next time!\n");
   }
 
   return 0;
